@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/v-andrusenko/UpcomingMovies/master/upcoming_movies.ico" alt="Image" style="zoom: 33%;" /> Movies Are Coming
+# <img src="https://raw.githubusercontent.com/v-andrusenko/UpcomingMovies/master/upcoming_movies.ico" alt="Image" style="zoom: 20%;" /> Movies Are Coming
 
 ![GitHub code size in bytes](https://img.shields.io/github/repo-size/v-andrusenko/movies-are-coming-android) ![GitHub issues](https://img.shields.io/github/downloads/v-andrusenko/movies-are-coming-android/total)
 
