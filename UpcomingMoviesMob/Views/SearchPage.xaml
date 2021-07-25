@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UpcomingMoviesMob.Views.SearchPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:UpcomingMoviesMob.ViewModels"  
+             xmlns:model="clr-namespace:UpcomingMoviesMob.Models"
+             Background="#272537">
+    <ContentPage.BindingContext>
+        <local:SearchViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame CornerRadius="10"
+                   Margin="10"
+                   Padding="0"
+                   BackgroundColor="#766fa3">
+                <StackLayout Orientation="Horizontal">
+                    <Entry Placeholder="find a movie, series, person"
+                           PlaceholderColor="#d4d4d4"
+                           TextColor="White"
+                           Margin="10,5,10,5"
+                           Text="{Binding Query, UpdateSourceEventName=OnPropertyChanged}"/>
+                    <Button Text="Search" 
+                            HorizontalOptions="FillAndExpand" 
+                            CornerRadius="10"
+                            Command="{Binding SearchForSomething}">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Color="#a99eff" Offset="0.0"/>
+                                <GradientStop Color="#6c59ff" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </StackLayout>
+            </Frame>
+
+            <CollectionView ItemsSource="{Binding SearchCollectionOnPage}"
+                            SelectionMode="None"
+                            ItemsLayout="VerticalGrid, 2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <StackLayout x:DataType="model:TrendingItem" Margin="5">
+                                <StackLayout>
+                                    <Frame CornerRadius="10" 
+                                       Padding="0"
+                                       IsClippedToBounds="True">
+                                        <Image Source="{Binding poster_path}" 
+                                               Aspect="AspectFill"
+                                               HeightRequest="280"/>
+                                    </Frame>
+                                    <Label Text="{Binding title}" 
+                                        LineBreakMode="TailTruncation" 
+                                        Style="{DynamicResource ListItemTextStyle}" 
+                                        FontSize="16" 
+                                        TextColor="White"
+                                        HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding release_date}" 
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="14" 
+                                        TextColor="#bcbfcf"
+                                       HorizontalTextAlignment="Center"/>
+                                </StackLayout>
+
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchViewModel}}, Path=ItemTapped}"		
+                                CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

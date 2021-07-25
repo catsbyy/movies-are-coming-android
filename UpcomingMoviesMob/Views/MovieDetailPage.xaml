@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UpcomingMoviesMob.Views.MovieDetailPage"
+             xmlns:viewModels="clr-namespace:UpcomingMoviesMob.ViewModels" xmlns:model="clr-namespace:UpcomingMoviesMob.Models"
+             Title="{Binding Title}"
+             Background="#272537">
+
+    <ContentPage.BindingContext>
+        <viewModels:MovieDetailViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView Margin="10,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="559"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="280"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="350"/>
+            </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="Label" x:Key="BasicTextBlock">
+                    <Setter Property="TextColor" Value="#bcbfcf"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                    <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                    <Setter Property="HeightRequest" Value="-1"/>
+                </Style>
+
+                <Style TargetType="Label" x:Key="MovieTextBlock">
+                    <Setter Property="TextColor" Value="White"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                    <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                    <Setter Property="HeightRequest" Value="-1"/>
+                    <Setter Property="Margin" Value="0,-5,0,0"/>
+                </Style>
+
+            </Grid.Resources>
+            <Frame CornerRadius="15" 
+                   Padding="0">
+                <Image Source="{Binding Movie.poster_path}" 
+                    Aspect="AspectFill"
+                    HeightRequest="559"/>
+            </Frame>
+            <StackLayout Grid.Row="1">
+                <StackLayout>
+                    <Label Text="Title: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.title}" Style="{StaticResource MovieTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Original title: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.original_title}" Style="{StaticResource MovieTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Vote average: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.vote_average}" Style="{StaticResource MovieTextBlock}"/>
+
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Tagline: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.tagline}" Style="{StaticResource MovieTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Release date: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.release_date}" Style="{StaticResource MovieTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Status: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.status}" Style="{StaticResource MovieTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Days left: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.days_left}" Style="{StaticResource MovieTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Country: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.all_countries}" Style="{StaticResource MovieTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Genres: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.all_genres}" Style="{StaticResource MovieTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Production company: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.all_companies}" Style="{StaticResource MovieTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Runtime (minutes): " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.runtime}" Style="{StaticResource MovieTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Spoken languages: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.all_languages}" Style="{StaticResource MovieTextBlock}" />
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Overview: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Movie.overview}" Style="{StaticResource MovieTextBlock}" />
+                </StackLayout>
+
+                <Label Text="Available teasers, trailers and other videos" 
+                       FontSize="18" 
+                       TextColor="White" 
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       Margin="0,15,0,0"/>
+            </StackLayout>
+            <StackLayout Grid.Row="2" Margin="0,0,0,10">
+                <CarouselView  
+                    x:Name="VideosListView"
+                    ItemsSource="{Binding VideoCollection}"
+                    Loop="True"
+                    IndicatorView="indicatorView">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:Video" Margin="5"
+                                         HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="FillAndExpand">
+                                <Frame CornerRadius="10" 
+                                       Padding="0"
+                                       IsClippedToBounds="True"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center">
+                                    <Image Source="{Binding thumbnail}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="200"
+                                       WidthRequest="355"/>
+                                </Frame>
+                                <Label Text="{Binding name}"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"
+                                       TextColor="White"
+                                       FontSize="16"/>
+
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnButtonTapped" 
+                                                          NumberOfTapsRequired="1"/>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+                <IndicatorView
+                    x:Name="indicatorView"
+                    IndicatorColor="Gray"
+                    IndicatorSize="10"
+                    SelectedIndicatorColor="White" 
+                    HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="3">
+                <Label Text="Directors" 
+                       FontSize="18" 
+                       TextColor="White" 
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       Margin="0,15,0,0"/>
+                <CollectionView x:Name="DirectorListView"
+                                ItemsSource="{Binding CrewCollection}"
+                                ItemsLayout="HorizontalList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:Crew" Margin="5"
+                                        WidthRequest="150">
+                                <Frame CornerRadius="10" 
+                                       Padding="0"
+                                       IsClippedToBounds="True"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center">
+                                    <Image Source="{Binding profile_path}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="225"
+                                       WidthRequest="150"/>
+                                </Frame>
+                                <Label Text="{Binding name}"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"
+                                       LineBreakMode="TailTruncation" 
+                                       TextColor="White"
+                                       FontSize="16"/>
+
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MovieDetailViewModel}}, Path=PersonTapped}"		
+                                            CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+
+            <StackLayout Grid.Row="4">
+                <Label Text="Actors and Actresses" 
+                       FontSize="18" 
+                       TextColor="White" 
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       Margin="0,15,0,0"/>
+                <CollectionView x:Name="CastListView"
+                                ItemsSource="{Binding CastCollection}"
+                                ItemsLayout="HorizontalList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:Cast" Margin="5"
+                                         WidthRequest="150">
+                                <Frame CornerRadius="10" 
+                                       Padding="0"
+                                       IsClippedToBounds="True"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center">
+                                    <Image Source="{Binding profile_path}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="225"
+                                       WidthRequest="150"/>
+                                </Frame>
+                                <Label Text="{Binding name}"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"
+                                       LineBreakMode="TailTruncation" 
+                                       TextColor="White"
+                                       FontSize="16"/>
+                                <Label Text="{Binding character}" 
+                                        LineBreakMode="TailTruncation"
+                                        FontSize="14" 
+                                        TextColor="#bcbfcf"
+                                        HorizontalTextAlignment="Center"
+                                       Margin="0,-5,0,0"/>
+
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MovieDetailViewModel}}, Path=PersonTapped}"		
+                                            CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+            <!--
+            -->
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

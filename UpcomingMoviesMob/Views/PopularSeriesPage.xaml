@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UpcomingMoviesMob.Views.PopularSeriesPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:UpcomingMoviesMob.ViewModels"  
+             xmlns:model="clr-namespace:UpcomingMoviesMob.Models"
+             Background="#272537">
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <ContentPage.BindingContext>
+
+        <local:PopularSeriesViewModel/>
+
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="infinite.png" Command="{Binding EnableInfiniteScroll}"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <CollectionView x:Name="SeriesListView"
+                ItemsSource="{Binding SeriesCollectionOnPage}"
+                SelectionMode="None"
+                ItemsLayout="VerticalGrid, 2"
+                RemainingItemsThreshold="4"
+                RemainingItemsThresholdReachedCommand="{Binding LoadMoreSeriesCommand}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <StackLayout x:DataType="model:Series" Margin="5">
+                            <StackLayout>
+                                <Frame CornerRadius="10" 
+                                       Padding="0"
+                                       IsClippedToBounds="True">
+                                    <Image Source="{Binding poster_path}" 
+                                       Aspect="AspectFill"
+                                       HeightRequest="280"/>
+                                </Frame>
+                                <Label Text="{Binding name}" 
+                                        LineBreakMode="TailTruncation" 
+                                        Style="{DynamicResource ListItemTextStyle}" 
+                                        FontSize="16" 
+                                        TextColor="White"
+                                        HorizontalTextAlignment="Center"/>
+                                <Label Text="{Binding first_air_date}" 
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="14" 
+                                        TextColor="#bcbfcf"
+                                       HorizontalTextAlignment="Center"/>
+                            </StackLayout>
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:PopularSeriesViewModel}}, Path=SeriesTapped}"		
+                                CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <ActivityIndicator
+            IsRunning="{Binding IsWorking}"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Margin="0,0,0,20"
+            InputTransparent="True"/>
+
+        <StackLayout Orientation="Horizontal" 
+                     HeightRequest="40"
+                     HorizontalOptions="CenterAndExpand"
+                     VerticalOptions="End"
+                     IsVisible="{Binding IsNavigationButtonsVisible}">
+            <StackLayout.Resources>
+                <Style TargetType="{x:Type ImageButton}" x:Key="ButtonBright">
+                    <Setter Property="Margin" Value="0,0,0,0"/>
+                    <Setter Property="BackgroundColor" Value="#FE6584"/>
+                </Style>
+                <Style TargetType="{x:Type ImageButton}" x:Key="ButtonDark">
+                    <Setter Property="Margin" Value="0,0,0,0"/>
+                    <Setter Property="BackgroundColor" Value="#4c486e"/>
+                </Style>
+
+            </StackLayout.Resources>
+
+            <ImageButton Source="first.png" Command="{Binding GoToFirstPage}" Style="{StaticResource ButtonDark}" CornerRadius="10" WidthRequest="60"/>
+            <ImageButton Source="back.png" Command="{Binding GoToPreviousPage}" Style="{StaticResource ButtonBright}" CornerRadius="10" WidthRequest="60" />
+            <ImageButton Source="middle.png" Command="{Binding GoToMiddlePage}" Style="{StaticResource ButtonDark}" CornerRadius="10" WidthRequest="60" />
+            <ImageButton Source="forward.png" Command="{Binding GoToNextPage}" Style="{StaticResource ButtonBright}" CornerRadius="10" WidthRequest="60" />
+            <ImageButton Source="last.png" Command="{Binding GoToLastPage}" Style="{StaticResource ButtonDark}" CornerRadius="10" WidthRequest="60" />
+        </StackLayout>
+
+    </Grid>
+
+</ContentPage>

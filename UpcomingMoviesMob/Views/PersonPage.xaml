@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UpcomingMoviesMob.Views.PersonPage"
+             xmlns:viewModels="clr-namespace:UpcomingMoviesMob.ViewModels" xmlns:model="clr-namespace:UpcomingMoviesMob.Models"
+             Title="{Binding Title}"
+             Background="#272537">
+
+    <ContentPage.BindingContext>
+        <viewModels:PersonViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView Margin="10,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="560"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="Label" x:Key="BasicTextBlock">
+                    <Setter Property="TextColor" Value="#bcbfcf"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                    <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                    <Setter Property="HeightRequest" Value="-1"/>
+                </Style>
+
+                <Style TargetType="Label" x:Key="PersonTextBlock">
+                    <Setter Property="TextColor" Value="White"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                    <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                    <Setter Property="HeightRequest" Value="-1"/>
+                    <Setter Property="Margin" Value="0,-5,0,0"/>
+                </Style>
+
+            </Grid.Resources>
+            <StackLayout Margin="0,0,0,10">
+                <CarouselView  
+                    x:Name="ImagesListView"
+                    ItemsSource="{Binding PersonImagesCollection}"
+                    Loop="{Binding IsLooped}"
+                    IndicatorView="indicatorView">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:PersonImages" Margin="5"
+                                         HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="FillAndExpand"
+                                         Padding="0">
+                                <Frame CornerRadius="15" 
+                                       Padding="0" Margin="0"
+                                       IsClippedToBounds="True"
+                                       HeightRequest="560">
+                                    <Image Source="{Binding file_path}"
+                                       Aspect="AspectFill"/>
+                                </Frame>
+
+                            </StackLayout>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+                <IndicatorView
+                    x:Name="indicatorView"
+                    IndicatorColor="Gray"
+                    IndicatorSize="10"
+                    SelectedIndicatorColor="White" 
+                    HorizontalOptions="Center"/>
+            </StackLayout>
+
+
+            <StackLayout Grid.Row="1" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Name: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Person.name}" Style="{StaticResource PersonTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Place of birth: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Person.place_of_birth}" Style="{StaticResource PersonTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Known for: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Person.known_for_department}" Style="{StaticResource PersonTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Birthday: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Person.birthday}" Style="{StaticResource PersonTextBlock}"/>
+                </StackLayout>
+                
+                <StackLayout IsVisible="{Binding IsDead}">
+                    <Label Text="Deathday: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Person.deathday}" Style="{StaticResource PersonTextBlock}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="Biography: " Style="{StaticResource BasicTextBlock}"/>
+                    <Label Text="{Binding Person.biography}" Style="{StaticResource PersonTextBlock}"/>
+                </StackLayout>
+
+            </StackLayout>
+
+            
+            <!--
+            -->
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
