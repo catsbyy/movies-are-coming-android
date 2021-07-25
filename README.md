@@ -18,6 +18,10 @@ Here are some examples of how the application works:
 
 <img src="https://user-images.githubusercontent.com/70683676/124350096-4bce0800-dbfb-11eb-9e56-2b2ca18637f8.gif" alt="series_page" style="zoom: 100%;" /> 
 
+- Search page and an ability to watch person's biography and photos
+
+<img src="https://user-images.githubusercontent.com/70683676/126900171-aaee88eb-e498-41ad-b233-67bc4bb696f1.gif" alt="search_page" style="zoom: 100%;" /> 
+
 ## Instruments
 
 - C#
