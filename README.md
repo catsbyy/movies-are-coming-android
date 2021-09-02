@@ -1,6 +1,6 @@
-# <img src="https://raw.githubusercontent.com/v-andrusenko/UpcomingMovies/master/upcoming_movies.ico" alt="Image" style="zoom: 20%;" /> Movies Are Coming
+# <img src="https://raw.githubusercontent.com/catsbyy/UpcomingMovies/master/upcoming_movies.ico" alt="Image" style="zoom: 20%;" /> Movies Are Coming
 
-![GitHub code size in bytes](https://img.shields.io/github/repo-size/v-andrusenko/movies-are-coming-android) ![GitHub issues](https://img.shields.io/github/downloads/v-andrusenko/movies-are-coming-android/total)
+![GitHub code size in bytes](https://img.shields.io/github/repo-size/catsbyy/movies-are-coming-android) ![GitHub issues](https://img.shields.io/github/downloads/catsbyy/movies-are-coming-android/total)
 
 "Movies Are Coming" application is designed to show a list of movies that will be released soon and show their descriptions. Also, it shows a list of popular series and their details. On the Home page, there are trending of current day and current week. It is developed with Xamarin for the Android platform.
 
@@ -33,7 +33,7 @@ Here are some examples of how the application works:
 
 ## Installation
 
-To install the project clone the repository by ``` git clone https://github.com/v-andrusenko/movies-are-coming-android.git```
+To install the project clone the repository by ``` git clone https://github.com/catsbyy/movies-are-coming-android.git```
 
 ## Usage
 
